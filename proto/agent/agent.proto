@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package agent;
+option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/agent;agent";
+//option go_package = "agent";
+
+// import "proto/backend/backend.proto";
+//import "../backend/backend.proto";
+
+service Agent {
+  rpc Info(AgentInfoReq) returns (AgentInfoResp);
+
+}
+
+message AgentInfoReq {
+  string agentID = 1;
+}
+
+message AgentInfoResp {
+  string ip = 1;
+  int32 tasksNumber = 2; // 任务总数
+  int32 tasksAbnormalNumber = 3; // 异常任务数
+  int32 tasksSuspendedNumber = 4; // 暂停任务数
+  float load = 5;
+  string cpuInfo = 6;
+  string memInfo = 7;
+}
+
