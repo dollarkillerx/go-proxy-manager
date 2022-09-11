@@ -18,5 +18,10 @@ func (s *Server) Run() error {
 		}
 	}()
 
+	log.Println("=========================")
+	log.Println("GO Proxy Manager Agent: ")
+	log.Println("HTTP: 80")
+	log.Println("HTTPS: 443")
+	log.Println("=========================")
 	return s.listenAndTLS()
 }

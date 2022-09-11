@@ -2,6 +2,7 @@ package server
 
 import (
 	"crypto/tls"
+	"log"
 	"net/http"
 )
 
@@ -36,8 +37,8 @@ type httpHandler struct {
 }
 
 func (h *httpHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	//TODO implement me
-	panic("implement me")
+	log.Println(request.URL.Host)
+	writer.Write([]byte("ok"))
 }
 
 type httpsHandler struct {
