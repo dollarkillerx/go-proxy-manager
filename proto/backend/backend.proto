@@ -3,7 +3,4 @@ syntax = "proto3";
 package agent;
 option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/backend;backend";
 
-service Backend {
-
-}
 
