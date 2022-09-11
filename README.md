@@ -4,16 +4,17 @@ Corraza-based secure reverse proxy(Alternative to bloated nginx proxy manager)
 
 The current project adopts a split design to accumulate technology for the future cdn
 
-Backend:
+### Design
 
-控制端 发布任务
-
-Agent: 
-
-代理端
-
+#[](./README/cdn-awf-dz.jpg)
 
 #### dev: 
+
+嵌入式WAF https://coraza.io/
+
+WAF规则 https://coreruleset.org/installation/
+
+WAF 可靠性测试 https://github.com/wallarm/gotestwaf
 
 Basic plugin dependencies
 

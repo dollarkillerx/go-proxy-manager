@@ -2,14 +2,13 @@ syntax = "proto3";
 
 package agent;
 option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/agent;agent";
-//option go_package = "agent";
-
-// import "proto/backend/backend.proto";
-//import "../backend/backend.proto";
+import "common/common.proto";
 
 service Agent {
   rpc Info(AgentInfoReq) returns (AgentInfoResp);
-
+  rpc AddTask(AddTaskReq) returns (common.Empty);
+  rpc ModifyTask(ModifyTaskReq) returns (common.Empty);
+  rpc ApplyCertificate(ApplyCertificateReq) returns (common.Certificate);
 }
 
 message AgentInfoReq {
@@ -26,3 +25,28 @@ message AgentInfoResp {
   string memInfo = 7;
 }
 
+message AddTaskReq {
+  string domain = 1;
+  bool enableSsl = 2;
+  bool enableWaf = 3;
+  common.ProxyType proxyType = 4;
+  common.ReverseProxy reverseProxy = 5;
+  common.StreamProxy streamProxy = 6;
+  common.Certificate certificate = 7;
+}
+
+message ModifyTaskReq {
+  string taskID = 1;
+  bool enableProxy = 2;
+  bool enableSsl = 3;
+  bool enableWaf = 4;
+  bool deleteTask = 5;
+  common.ProxyType proxyType = 6;
+  common.ReverseProxy reverseProxy = 7;
+  common.StreamProxy streamProxy = 8;
+  common.Certificate certificate = 9;
+}
+
+message ApplyCertificateReq {
+  string domain = 1;
+}

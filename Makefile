@@ -1,3 +1,9 @@
-gen_agent_proto:
-	protoc --proto_path=proto/agent --go_out=proto/agent --go_opt=paths=source_relative --go-grpc_out=proto/agent --go-grpc_opt=paths=source_relative proto/agent/*proto
-	#protoc -I proto/agent/ proto/agent/*.proto --go-grpc_out=proto/agent/.
+gen_proto_common:
+	protoc --proto_path=proto/ --go_out=proto/ --go_opt=paths=source_relative --go-grpc_out=proto/ --go-grpc_opt=paths=source_relative proto/common/*proto
+
+
+gen_proto_agent:
+	protoc --proto_path=proto/ --go_out=proto/ --go_opt=paths=source_relative --go-grpc_out=proto/ --go-grpc_opt=paths=source_relative proto/agent/*proto
+
+
+# --proto_path=proto/ 项目根路径 --go_out=proto/ --go-grpc_out=proto/ 指定生成文件目录

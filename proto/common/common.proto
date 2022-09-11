@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package common;
+option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/common;common";
+
+message Empty {
+
+}
+
+message Certificate {
+  string publicKey = 1; // 公钥
+  string privateKey = 2;// 私钥
+  int64 expiration = 3; // 过期时间
+  string domain = 4; // 域名
+  string certificateBrand = 5; // 证书品牌
+}
+
+message ReverseProxy {
+    string target = 1;
+    bool cacheAssets = 2;
+    bool websocketsSupport = 3;
+}
+
+message RedirectProxy {
+  string target = 1;
+  bool reservedPath = 2; // 保留路径
+  RedirectStateType redirectStateType =3;
+}
+
+message StreamProxy {
+  string target = 1;
+  int64  exposedPort =2; // 暴露端口
+  bool enableTcp = 3;
+  bool enableUdp = 4;
+}
+
+enum ProxyType {
+    ReverseProxyEnum = 0; // 反向代理
+    RedirectProxyEnum = 1; // 重定向
+    StreamProxyEnum = 2; // 流代理
+    R404ProxyEnum = 4; // 404
+}
+
+enum RedirectStateType {
+  MultipleChoices300 = 0;
+  MovedPermanently301 = 1;
+  Found302 = 2;
+  SeeOther303 = 3;
+  TemporaryRedirect307 = 4;
+  PermanentRedirect308 = 5;
+}
