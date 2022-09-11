@@ -6,7 +6,7 @@ The current project adopts a split design to accumulate technology for the futur
 
 ### Design
 
-#[](./README/cdn-awf-dz.jpg)
+![](./README/cdn-awf-dz.jpg)
 
 #### dev: 
 
