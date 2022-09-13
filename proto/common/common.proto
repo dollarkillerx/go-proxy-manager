@@ -18,7 +18,8 @@ message Certificate {
 message ReverseProxy {
     string target = 1;
     bool cacheAssets = 2;
-    bool websocketsSupport = 3;
+    bool pathSubstitution = 3; // 路径替换
+    bool websocketsSupport = 4;
 }
 
 message RedirectProxy {

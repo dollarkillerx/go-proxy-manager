@@ -5,10 +5,13 @@ import (
 )
 
 type Server struct {
+	cache *cache
 }
 
 func NewServer() *Server {
-	return &Server{}
+	return &Server{
+		cache: newCache(),
+	}
 }
 
 func (s *Server) Run() error {

@@ -31,8 +31,9 @@ message AddTaskReq {
   bool enableWaf = 3;
   common.ProxyType proxyType = 4;
   common.ReverseProxy reverseProxy = 5;
-  common.StreamProxy streamProxy = 6;
-  common.Certificate certificate = 7;
+  common.RedirectProxy redirectProxy = 6;
+  common.StreamProxy streamProxy = 7;
+  common.Certificate certificate = 8;
 }
 
 message ModifyTaskReq {
@@ -43,8 +44,9 @@ message ModifyTaskReq {
   bool deleteTask = 5;
   common.ProxyType proxyType = 6;
   common.ReverseProxy reverseProxy = 7;
-  common.StreamProxy streamProxy = 8;
-  common.Certificate certificate = 9;
+  common.RedirectProxy redirectProxy = 8;
+  common.StreamProxy streamProxy = 9;
+  common.Certificate certificate = 10;
 }
 
 message ApplyCertificateReq {
