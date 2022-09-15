@@ -84,6 +84,7 @@ func (h *httpHandler) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 						req.URL.RawQuery = target.RawQuery + "&" + req.URL.RawQuery
 					}
 				},
+				ErrorHandler: func(http.ResponseWriter, *http.Request, error) {},
 			}
 			r.ServeHTTP(writer, request)
 		}
@@ -149,6 +150,7 @@ func (h *httpsHandler) ServeHTTP(writer http.ResponseWriter, request *http.Reque
 						req.URL.RawQuery = target.RawQuery + "&" + req.URL.RawQuery
 					}
 				},
+				ErrorHandler: func(http.ResponseWriter, *http.Request, error) {},
 			}
 			r.ServeHTTP(writer, request)
 		}

@@ -81,7 +81,7 @@ type AgentServer interface {
 	AddTask(context.Context, *AddTaskReq) (*common.Empty, error)
 	ModifyTask(context.Context, *ModifyTaskReq) (*common.Empty, error)
 	ApplyCertificate(context.Context, *ApplyCertificateReq) (*common.Certificate, error)
-	mustEmbedUnimplementedAgentServer()
+	//mustEmbedUnimplementedAgentServer()
 }
 
 // UnimplementedAgentServer must be embedded to have forward compatible implementations.

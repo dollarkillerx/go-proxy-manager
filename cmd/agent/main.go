@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Llongfile)
+
 	ser := server.NewServer()
 	if err := ser.Run(); err != nil {
 		log.Fatalln(err)
