@@ -53,13 +53,14 @@ enum RedirectStateType {
 
 message TaskInfo {
   string taskID = 1;
-  bool enableProxy = 2;
-  bool enableSsl = 3;
-  bool enableWaf = 4;
-  bool deleteTask = 5;
-  ProxyType proxyType = 6;
-  ReverseProxy reverseProxy = 7;
-  RedirectProxy redirectProxy = 8;
-  StreamProxy streamProxy = 9;
-  Certificate certificate = 10;
+  repeated string domain = 2; // 域名
+  bool enableProxy = 3;
+  bool enableSsl = 4;
+  bool enableWaf = 5;
+  bool deleteTask = 6;
+  ProxyType proxyType = 7;
+  ReverseProxy reverseProxy = 8;
+  RedirectProxy redirectProxy = 9;
+  StreamProxy streamProxy = 10;
+  Certificate certificate = 11;
 }

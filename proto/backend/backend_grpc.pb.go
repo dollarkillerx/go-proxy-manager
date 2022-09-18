@@ -58,7 +58,6 @@ func (c *backendClient) SyncData(ctx context.Context, in *SyncDataReq, opts ...g
 type BackendServer interface {
 	Register(context.Context, *RgInfo) (*RgResp, error)
 	SyncData(context.Context, *SyncDataReq) (*SyncDataResp, error)
-	mustEmbedUnimplementedBackendServer()
 }
 
 // UnimplementedBackendServer must be embedded to have forward compatible implementations.
