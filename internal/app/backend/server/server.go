@@ -1,6 +1,9 @@
 package server
 
 import (
+	"github.com/dollarkillerx/go-proxy-manager/internal/app/backend/middleware"
+	"github.com/dollarkillerx/go-proxy-manager/internal/app/backend/storage"
+	"github.com/dollarkillerx/go-proxy-manager/internal/app/backend/storage/simple"
 	"github.com/dollarkillerx/go-proxy-manager/proto/backend"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -10,16 +13,25 @@ import (
 )
 
 type Server struct {
-	app *gin.Engine
+	app     *gin.Engine
+	storage storage.Interface
 }
 
 func NewServer() *Server {
 	app := gin.New()
-	app.Use(gin.Recovery())
+	app.Use(middleware.SetBasicInformation())
+	app.Use(middleware.Cors())
+	app.Use(middleware.HttpRecover())
 	app.Use(gin.Logger())
 
+	newSimple, err := simple.NewSimple()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	return &Server{
-		app: app,
+		app:     app,
+		storage: newSimple,
 	}
 }
 
