@@ -4,8 +4,10 @@ go 1.19
 
 require (
 	github.com/dgraph-io/ristretto v0.1.0
-	github.com/dollarkillerx/inventory v0.0.0-20220915110854-fe5f078ac6e5
+	github.com/dollarkillerx/jwt v0.0.4
 	github.com/gin-gonic/gin v1.8.1
+	github.com/glebarez/sqlite v1.4.7
+	github.com/google/uuid v1.3.0
 	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
 	gorm.io/gorm v1.23.9
@@ -15,6 +17,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/glebarez/go-sqlite v1.18.2 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
@@ -30,6 +33,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
 	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
@@ -37,4 +41,8 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	modernc.org/libc v1.18.0 // indirect
+	modernc.org/mathutil v1.5.0 // indirect
+	modernc.org/memory v1.3.0 // indirect
+	modernc.org/sqlite v1.18.2 // indirect
 )

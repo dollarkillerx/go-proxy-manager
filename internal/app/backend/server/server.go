@@ -1,8 +1,6 @@
 package server
 
 import (
-	"github.com/dgraph-io/ristretto"
-	"github.com/dollarkillerx/go-proxy-manager/internal/utils"
 	"github.com/dollarkillerx/go-proxy-manager/proto/backend"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -12,24 +10,16 @@ import (
 )
 
 type Server struct {
-	cache *ristretto.Cache
-	app   *gin.Engine
+	app *gin.Engine
 }
 
 func NewServer() *Server {
-
-	cache, err := utils.NewRCache()
-	if err != nil {
-		log.Fatalln(err)
-	}
-
 	app := gin.New()
 	app.Use(gin.Recovery())
 	app.Use(gin.Logger())
 
 	return &Server{
-		cache: cache,
-		app:   app,
+		app: app,
 	}
 }
 
