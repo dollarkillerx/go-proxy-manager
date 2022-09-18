@@ -1,6 +1,36 @@
 syntax = "proto3";
 
-package agent;
+package backend;
 option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/backend;backend";
+import "common/common.proto";
+
+service Backend {
+  rpc Register(RgInfo) returns (RgResp);
+  rpc SyncData(SyncDataReq) returns (SyncDataResp);
+}
+
+message RgInfo {
+  string nodeId = 1;
+  string ip = 2;
+  int32 tasksNumber = 3; // 任务总数
+  int32 tasksAbnormalNumber = 4; // 异常任务数
+  int32 tasksSuspendedNumber = 5; // 暂停任务数
+  float load = 6;
+  string cpuInfo = 7;
+  string memInfo = 8;
+}
+
+message RgResp {
+  string nodeId = 1;
+}
+
+message SyncDataReq {
+  string nodeId = 1;
+  string ip = 2;
+}
+
+message SyncDataResp {
+  repeated common.TaskInfo tasks = 1;
+}
 
 

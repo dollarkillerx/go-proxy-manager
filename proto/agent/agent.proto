@@ -5,48 +5,9 @@ option go_package = "github.com/dollarkillerx/go-proxy-manager/proto/agent;agent
 import "common/common.proto";
 
 service Agent {
-  rpc Info(AgentInfoReq) returns (AgentInfoResp);
-  rpc AddTask(AddTaskReq) returns (common.Empty);
-  rpc ModifyTask(ModifyTaskReq) returns (common.Empty);
+  rpc AddTask(common.TaskInfo) returns (common.Empty);
+  rpc ModifyTask(common.TaskInfo) returns (common.Empty);
   rpc ApplyCertificate(ApplyCertificateReq) returns (common.Certificate);
-}
-
-message AgentInfoReq {
-  string agentID = 1;
-}
-
-message AgentInfoResp {
-  string ip = 1;
-  int32 tasksNumber = 2; // 任务总数
-  int32 tasksAbnormalNumber = 3; // 异常任务数
-  int32 tasksSuspendedNumber = 4; // 暂停任务数
-  float load = 5;
-  string cpuInfo = 6;
-  string memInfo = 7;
-}
-
-message AddTaskReq {
-  string domain = 1;
-  bool enableSsl = 2;
-  bool enableWaf = 3;
-  common.ProxyType proxyType = 4;
-  common.ReverseProxy reverseProxy = 5;
-  common.RedirectProxy redirectProxy = 6;
-  common.StreamProxy streamProxy = 7;
-  common.Certificate certificate = 8;
-}
-
-message ModifyTaskReq {
-  string taskID = 1;
-  bool enableProxy = 2;
-  bool enableSsl = 3;
-  bool enableWaf = 4;
-  bool deleteTask = 5;
-  common.ProxyType proxyType = 6;
-  common.ReverseProxy reverseProxy = 7;
-  common.RedirectProxy redirectProxy = 8;
-  common.StreamProxy streamProxy = 9;
-  common.Certificate certificate = 10;
 }
 
 message ApplyCertificateReq {

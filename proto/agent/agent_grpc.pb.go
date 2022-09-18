@@ -23,9 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AgentClient interface {
-	Info(ctx context.Context, in *AgentInfoReq, opts ...grpc.CallOption) (*AgentInfoResp, error)
-	AddTask(ctx context.Context, in *AddTaskReq, opts ...grpc.CallOption) (*common.Empty, error)
-	ModifyTask(ctx context.Context, in *ModifyTaskReq, opts ...grpc.CallOption) (*common.Empty, error)
+	AddTask(ctx context.Context, in *common.TaskInfo, opts ...grpc.CallOption) (*common.Empty, error)
+	ModifyTask(ctx context.Context, in *common.TaskInfo, opts ...grpc.CallOption) (*common.Empty, error)
 	ApplyCertificate(ctx context.Context, in *ApplyCertificateReq, opts ...grpc.CallOption) (*common.Certificate, error)
 }
 
@@ -37,16 +36,7 @@ func NewAgentClient(cc grpc.ClientConnInterface) AgentClient {
 	return &agentClient{cc}
 }
 
-func (c *agentClient) Info(ctx context.Context, in *AgentInfoReq, opts ...grpc.CallOption) (*AgentInfoResp, error) {
-	out := new(AgentInfoResp)
-	err := c.cc.Invoke(ctx, "/agent.Agent/Info", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *agentClient) AddTask(ctx context.Context, in *AddTaskReq, opts ...grpc.CallOption) (*common.Empty, error) {
+func (c *agentClient) AddTask(ctx context.Context, in *common.TaskInfo, opts ...grpc.CallOption) (*common.Empty, error) {
 	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, "/agent.Agent/AddTask", in, out, opts...)
 	if err != nil {
@@ -55,7 +45,7 @@ func (c *agentClient) AddTask(ctx context.Context, in *AddTaskReq, opts ...grpc.
 	return out, nil
 }
 
-func (c *agentClient) ModifyTask(ctx context.Context, in *ModifyTaskReq, opts ...grpc.CallOption) (*common.Empty, error) {
+func (c *agentClient) ModifyTask(ctx context.Context, in *common.TaskInfo, opts ...grpc.CallOption) (*common.Empty, error) {
 	out := new(common.Empty)
 	err := c.cc.Invoke(ctx, "/agent.Agent/ModifyTask", in, out, opts...)
 	if err != nil {
@@ -77,24 +67,19 @@ func (c *agentClient) ApplyCertificate(ctx context.Context, in *ApplyCertificate
 // All implementations must embed UnimplementedAgentServer
 // for forward compatibility
 type AgentServer interface {
-	Info(context.Context, *AgentInfoReq) (*AgentInfoResp, error)
-	AddTask(context.Context, *AddTaskReq) (*common.Empty, error)
-	ModifyTask(context.Context, *ModifyTaskReq) (*common.Empty, error)
+	AddTask(context.Context, *common.TaskInfo) (*common.Empty, error)
+	ModifyTask(context.Context, *common.TaskInfo) (*common.Empty, error)
 	ApplyCertificate(context.Context, *ApplyCertificateReq) (*common.Certificate, error)
-	//mustEmbedUnimplementedAgentServer()
 }
 
 // UnimplementedAgentServer must be embedded to have forward compatible implementations.
 type UnimplementedAgentServer struct {
 }
 
-func (UnimplementedAgentServer) Info(context.Context, *AgentInfoReq) (*AgentInfoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Info not implemented")
-}
-func (UnimplementedAgentServer) AddTask(context.Context, *AddTaskReq) (*common.Empty, error) {
+func (UnimplementedAgentServer) AddTask(context.Context, *common.TaskInfo) (*common.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTask not implemented")
 }
-func (UnimplementedAgentServer) ModifyTask(context.Context, *ModifyTaskReq) (*common.Empty, error) {
+func (UnimplementedAgentServer) ModifyTask(context.Context, *common.TaskInfo) (*common.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ModifyTask not implemented")
 }
 func (UnimplementedAgentServer) ApplyCertificate(context.Context, *ApplyCertificateReq) (*common.Certificate, error) {
@@ -113,26 +98,8 @@ func RegisterAgentServer(s grpc.ServiceRegistrar, srv AgentServer) {
 	s.RegisterService(&Agent_ServiceDesc, srv)
 }
 
-func _Agent_Info_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AgentInfoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AgentServer).Info(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/agent.Agent/Info",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentServer).Info(ctx, req.(*AgentInfoReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Agent_AddTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddTaskReq)
+	in := new(common.TaskInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -144,13 +111,13 @@ func _Agent_AddTask_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/agent.Agent/AddTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentServer).AddTask(ctx, req.(*AddTaskReq))
+		return srv.(AgentServer).AddTask(ctx, req.(*common.TaskInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Agent_ModifyTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ModifyTaskReq)
+	in := new(common.TaskInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -162,7 +129,7 @@ func _Agent_ModifyTask_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/agent.Agent/ModifyTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentServer).ModifyTask(ctx, req.(*ModifyTaskReq))
+		return srv.(AgentServer).ModifyTask(ctx, req.(*common.TaskInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -192,10 +159,6 @@ var Agent_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "agent.Agent",
 	HandlerType: (*AgentServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Info",
-			Handler:    _Agent_Info_Handler,
-		},
 		{
 			MethodName: "AddTask",
 			Handler:    _Agent_AddTask_Handler,

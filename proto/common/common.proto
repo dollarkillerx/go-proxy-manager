@@ -50,3 +50,16 @@ enum RedirectStateType {
   TemporaryRedirect307 = 4;
   PermanentRedirect308 = 5;
 }
+
+message TaskInfo {
+  string taskID = 1;
+  bool enableProxy = 2;
+  bool enableSsl = 3;
+  bool enableWaf = 4;
+  bool deleteTask = 5;
+  ProxyType proxyType = 6;
+  ReverseProxy reverseProxy = 7;
+  RedirectProxy redirectProxy = 8;
+  StreamProxy streamProxy = 9;
+  Certificate certificate = 10;
+}
